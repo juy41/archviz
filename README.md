@@ -12,8 +12,6 @@ ever leaves your browser.**
 
 ![demo](docs/demo.gif)
 
-<sub>↑ Replace this with a short screen recording (see <code>docs/README.md</code>).</sub>
-
 </div>
 
 ---
