@@ -10,7 +10,6 @@ ever leaves your browser.**
 
 [**🚀 Try it live**](https://juy41.github.io/archviz/) · [Quick start](#-quick-start) · [How it works](#-how-it-works) · [Security](#-security)
 
-![demo](docs/demo.gif)
 
 </div>
 
