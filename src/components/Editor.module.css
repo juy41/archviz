@@ -1,8 +1,12 @@
 /* The textarea and the highlight <pre> MUST share these metrics exactly, or the
    coloured text will drift out of alignment with the caret. */
 .editor {
-  --editor-font-size: 13.5px;
-  --editor-line-height: 1.65;
+  /* Integer px font-size + an INTEGER px line-height (not unitless) are critical:
+     the textarea caret and the highlight <pre> must step by the exact same whole
+     number of pixels per line, or sub-pixel rounding drifts them apart and the
+     gap grows by a line every ~25 rows. */
+  --editor-font-size: 13px;
+  --editor-line-height: 21px;
   --editor-pad-y: 14px;
   --editor-pad-x: 16px;
 
@@ -38,7 +42,7 @@
 }
 
 .gutter > div {
-  height: calc(var(--editor-font-size) * var(--editor-line-height));
+  height: var(--editor-line-height);
 }
 
 .gutterError {
