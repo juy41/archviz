@@ -1,0 +1,60 @@
+{
+  "name": "archviz",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Turn plain-text descriptions into clean architecture diagrams — entirely in your browser.",
+  "license": "MIT",
+  "type": "module",
+  "homepage": "https://github.com/juy41/archviz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juy41/archviz.git"
+  },
+  "keywords": [
+    "architecture",
+    "diagram",
+    "mermaid",
+    "dsl",
+    "editor",
+    "svg",
+    "plantuml",
+    "react",
+    "vite"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\""
+  },
+  "dependencies": {
+    "dompurify": "^3.1.7",
+    "mermaid": "^11.4.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/dompurify": "^3.0.5",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^6.0.2",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.14",
+    "globals": "^15.12.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.16.0",
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

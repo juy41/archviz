@@ -1,0 +1,214 @@
+/* The textarea and the highlight <pre> MUST share these metrics exactly, or the
+   coloured text will drift out of alignment with the caret. */
+.editor {
+  --editor-font-size: 13.5px;
+  --editor-line-height: 1.65;
+  --editor-pad-y: 14px;
+  --editor-pad-x: 16px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--surface);
+}
+
+.surface {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* --- line-number gutter --- */
+.gutter {
+  flex: 0 0 auto;
+  padding: var(--editor-pad-y) 10px var(--editor-pad-y) 14px;
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: var(--editor-font-size);
+  line-height: var(--editor-line-height);
+  color: var(--text-faint);
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+  user-select: none;
+  overflow: hidden;
+  min-width: 46px;
+}
+
+.gutter > div {
+  height: calc(var(--editor-font-size) * var(--editor-line-height));
+}
+
+.gutterError {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+/* --- code area (overlay + textarea) --- */
+.codeWrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.highlight,
+.textarea {
+  margin: 0;
+  border: 0;
+  padding: var(--editor-pad-y) var(--editor-pad-x);
+  font-family: var(--font-mono);
+  font-size: var(--editor-font-size);
+  line-height: var(--editor-line-height);
+  letter-spacing: 0;
+  tab-size: 2;
+  white-space: pre;
+  word-wrap: normal;
+  overflow-wrap: normal;
+}
+
+.highlight {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--syn-node);
+}
+
+.highlight code {
+  font: inherit;
+  display: block;
+}
+
+.line {
+  display: inline;
+}
+
+.textarea {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--accent);
+  overflow: auto;
+  outline: none;
+}
+
+.textarea::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+.textarea::placeholder {
+  color: var(--text-faint);
+}
+
+/* --- syntax token colours --- */
+.comment {
+  color: var(--syn-comment);
+  font-style: italic;
+}
+.keyword {
+  color: var(--syn-keyword);
+  font-weight: 600;
+}
+.operator {
+  color: var(--syn-operator);
+  font-weight: 700;
+}
+.type {
+  color: var(--syn-type);
+}
+.string {
+  color: var(--syn-string);
+}
+.label {
+  color: var(--syn-label);
+}
+.node {
+  color: var(--syn-node);
+}
+.plain {
+  color: var(--text-muted);
+}
+
+/* --- status / error bar --- */
+.statusBar {
+  flex: 0 0 auto;
+  max-height: 168px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 0.8rem;
+}
+
+.statusOk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+}
+
+.statusOk::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.statusBar[data-state='error'] {
+  border-top-color: var(--danger);
+}
+
+.errorList {
+  list-style: none;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.errorItem {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  transition: background var(--speed) var(--ease);
+}
+
+.errorItem:hover {
+  background: var(--danger-weak);
+}
+
+.errorIcon {
+  width: 14px !important;
+  height: 14px !important;
+  color: var(--danger);
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.errorLine {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--danger);
+  font-weight: 700;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.errorMsg {
+  color: var(--text-muted);
+  line-height: 1.4;
+}

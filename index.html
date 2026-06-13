@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+    <title>ArchViz — Text to Architecture Diagrams</title>
+    <meta
+      name="description"
+      content="A browser-based editor that turns a tiny text DSL into clean architecture diagrams. No sign-up, no servers, your diagrams never leave your browser."
+    />
+    <meta name="theme-color" content="#0a0f1a" />
+
+    <!--
+      NOTE: A strict Content-Security-Policy and `referrer` meta tag are injected
+      into this file automatically at build time (see securityMetaPlugin in
+      vite.config.ts). They are intentionally omitted here so the Vite dev server
+      — which uses an inline HMR bootstrap script — keeps working locally.
+    -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
