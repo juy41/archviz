@@ -38,6 +38,10 @@ async function configure(theme: ThemeName): Promise<MermaidModule> {
       startOnLoad: false,
       securityLevel: 'strict',
       theme: theme === 'dark' ? 'dark' : 'default',
+      // Top-level htmlLabels:false is required — the flowchart-scoped one alone
+      // is not honoured, and node labels would otherwise render inside
+      // <foreignObject> (HTML), which our SVG sanitiser strips for safety.
+      htmlLabels: false,
       flowchart: {
         htmlLabels: false,
         curve: 'basis',
