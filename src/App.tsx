@@ -115,8 +115,17 @@ export default function App(): JSX.Element {
 
   const handleCopyLink = useCallback(async () => {
     const url = await buildShareUrl(code);
+    // Reflect the shareable state in the address bar. This makes the link
+    // bookmarkable, reload-safe, and — crucially — still obtainable if the
+    // clipboard API is blocked (no focus, insecure context, permissions).
+    window.history.replaceState(null, '', url);
     const ok = await copyToClipboard(url);
-    notify(ok ? 'Share link copied — paste it anywhere' : 'Copy failed', ok ? 'success' : 'error');
+    notify(
+      ok
+        ? 'Share link copied — paste it anywhere'
+        : 'Link is now in your address bar — copy it from there',
+      ok ? 'success' : 'error',
+    );
   }, [code, notify]);
 
   return (

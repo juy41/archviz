@@ -102,9 +102,9 @@
 }
 
 .menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
+  /* Fixed (not absolute) so the toolbar's overflow-x:auto can't clip it.
+     `top`/`left` are set inline from the trigger's bounding rect. */
+  position: fixed;
   z-index: 40;
   width: 300px;
   max-width: 86vw;

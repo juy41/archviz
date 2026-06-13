@@ -32,10 +32,22 @@ export function Toolbar({
   canExport,
 }: ToolbarProps): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState<{ top: number; left: number }>({ top: 0, left: 0 });
   const menuRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const menuId = useId();
 
-  // Close the template menu on outside click or Escape (a11y).
+  // The dropdown is rendered with `position: fixed` (anchored to the trigger)
+  // so it escapes the toolbar's horizontal-scroll overflow, which would
+  // otherwise clip it to nothing.
+  const openMenu = (): void => {
+    const rect = triggerRef.current?.getBoundingClientRect();
+    if (rect) setMenuPos({ top: rect.bottom + 8, left: rect.left });
+    setMenuOpen(true);
+  };
+
+  // Close the template menu on outside click, Escape, or viewport resize (a11y
+  // + avoids a stale fixed position after a resize).
   useEffect(() => {
     if (!menuOpen) return;
     const onPointerDown = (event: MouseEvent): void => {
@@ -46,11 +58,14 @@ export function Toolbar({
     const onKeyDown = (event: KeyboardEvent): void => {
       if (event.key === 'Escape') setMenuOpen(false);
     };
+    const onResize = (): void => setMenuOpen(false);
     document.addEventListener('mousedown', onPointerDown);
     document.addEventListener('keydown', onKeyDown);
+    window.addEventListener('resize', onResize);
     return () => {
       document.removeEventListener('mousedown', onPointerDown);
       document.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('resize', onResize);
     };
   }, [menuOpen]);
 
@@ -63,12 +78,13 @@ export function Toolbar({
     <div className={styles.toolbar} role="toolbar" aria-label="Diagram actions">
       <div className={styles.menuWrap} ref={menuRef}>
         <button
+          ref={triggerRef}
           type="button"
           className={styles.primaryBtn}
           aria-haspopup="menu"
           aria-expanded={menuOpen}
           aria-controls={menuId}
-          onClick={() => setMenuOpen((open) => !open)}
+          onClick={() => (menuOpen ? setMenuOpen(false) : openMenu())}
         >
           <TemplateIcon />
           <span>Templates</span>
@@ -76,7 +92,13 @@ export function Toolbar({
         </button>
 
         {menuOpen && (
-          <div className={styles.menu} id={menuId} role="menu" aria-label="Templates">
+          <div
+            className={styles.menu}
+            id={menuId}
+            role="menu"
+            aria-label="Templates"
+            style={{ top: menuPos.top, left: menuPos.left }}
+          >
             {TEMPLATES.map((template) => (
               <button
                 key={template.id}
