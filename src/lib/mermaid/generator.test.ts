@@ -31,7 +31,7 @@ describe('Mermaid generator', () => {
 
   it('renders edge labels with the matching arrow syntax', () => {
     expect(gen('A -> B : call')).toContain('A -->|"call"| B');
-    expect(gen('A --> B : async')).toContain('A -. "async" .-> B');
+    expect(gen('A --> B : async')).toContain('A -.->|"async"| B');
     expect(gen('A <-> B : sync')).toContain('A <-->|"sync"| B');
   });
 

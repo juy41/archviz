@@ -71,7 +71,9 @@ function edgeLine(edge: DiagramEdge): string {
   const label = edge.label ? `"${escapeLabel(edge.label)}"` : null;
   switch (edge.kind) {
     case 'dashed':
-      return label ? `${edge.from} -. ${label} .-> ${edge.to}` : `${edge.from} -.-> ${edge.to}`;
+      // Use the pipe-label form (not the `-. text .->` middle form) so the
+      // quotes are stripped consistently with the other edge kinds.
+      return label ? `${edge.from} -.->|${label}| ${edge.to}` : `${edge.from} -.-> ${edge.to}`;
     case 'bidirectional':
       return label ? `${edge.from} <-->|${label}| ${edge.to}` : `${edge.from} <--> ${edge.to}`;
     case 'solid':
