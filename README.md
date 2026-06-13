@@ -114,7 +114,7 @@ API  ->  DB  : SQL     # add a label with ":"  (or "|")
 
 **Component types:** `service` · `database` · `queue` · `cache` · `external` · `default`
 
-## 🛠️ How it works
+## 🔧 How it works
 
 ```
 DSL text ──► parser ──► Diagram IR ──► Mermaid generator ──► Mermaid.js ──► SVG
